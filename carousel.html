@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lavender Carousel</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(45deg, #A35C7A, #eaace6fe, #6a1552);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .carousel-container {
+      width: 100%;
+      max-width: 600px;
+      overflow: hidden;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(16, 9, 19, 0.6);
+      background: rgba(255, 255, 255, 0.7);
+      position: relative;
+    }
+
+    .carousel {
+      display: flex;
+    
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .carousel img {
+      flex: 0 0 100%;
+      width: 100%;
+      height: 60vh;
+      object-fit: cover;
+      border-radius: 20px;
+    }
+
+    .nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: #aa60c8;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      font-size: 18px;
+      cursor: pointer;
+      border-radius: 50%;
+      z-index: 2;
+    }
+
+    .prev { left: 10px; }
+    .next { right: 10px; }
+
+    .bottom-button {
+      margin-top: 30px;
+      padding: 12px 28px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 30px;
+      background-color: #5e4169;
+      color: white;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.3s ease, transform 0.2s;
+    }
+
+    .bottom-button:hover {
+      background-color: #9148b5;
+      transform: scale(1.05);
+    }
+
+    /* 🔊 Overlay play button */
+    .audio-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      font-size: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 99;
+      cursor: pointer;
+    }
+
+    @media (max-width: 600px) {
+      .nav-btn {
+        padding: 8px 12px;
+        font-size: 16px;
+      }
+      .bottom-button {
+        font-size: 1rem;
+        padding: 10px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 🔊 Audio -->
+  <audio id="bg-audio" loop>
+    <source src="./audio1.mp3" type="audio/mpeg" />
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- 🔘 Play Overlay -->
+  <div class="audio-overlay" id="audioOverlay">▶ Tap to Start</div>
+
+  <!-- 🎠 Carousel -->
+  <div class="carousel-container">
+    <div class="carousel" id="carousel">
+      <img src="./c2.jpg" alt="2">
+      <img src="./c3.jpg" alt="3">
+      <img src="./c4.jpg" alt="4">
+      <img src="./c6.jpg" alt="6">
+      <img src="./c8.jpg" alt="8">
+      <img src="./c9.jpg" alt="9">
+      <img src="./c10.jpg" alt="10">
+      <img src="./c11.jpg" alt="11">
+      <img src="./c12.jpg" alt="12">
+      <img src="./c13.jpg" alt="13">
+      <img src="./c14.jpg" alt="14">
+      <img src="./c15.jpg" alt="15">
+      <img src="./c16.jpg" alt="16">
+    </div>
+    <button class="nav-btn prev" onclick="prevSlide()">❮</button>
+    <button class="nav-btn next" onclick="nextSlide()">❯</button>
+  </div>
+
+  <!-- 🎥 Next Page -->
+  <a href="media.html" class="bottom-button">🎥 Next Surprise</a>
+
+  <script>
+    const carousel = document.getElementById('carousel');
+    const slides = carousel.children;
+    let index = 0;
+    let timerID = null;
+    const delay = 2000;
+
+    function showSlide(i) {
+      const width = carousel.parentElement.clientWidth;
+      carousel.style.transform = `translateX(-${i * width}px)`;
+    }
+
+    function next() {
+      index = (index + 1) % slides.length;
+      showSlide(index);
+    }
+
+    function prev() {
+      index = (index - 1 + slides.length) % slides.length;
+      showSlide(index);
+    }
+
+    function startAuto() {
+      timerID = setInterval(next, delay);
+    }
+
+    function stopAuto() {
+      clearInterval(timerID);
+    }
+
+    window.nextSlide = () => { stopAuto(); next(); startAuto(); };
+    window.prevSlide = () => { stopAuto(); prev(); startAuto(); };
+
+    window.addEventListener('resize', () => showSlide(index));
+    carousel.addEventListener('mouseenter', stopAuto);
+    carousel.addEventListener('mouseleave', startAuto);
+
+    startAuto();
+
+    // 🔊 Handle audio play on user interaction
+    const audio = document.getElementById('bg-audio');
+    const overlay = document.getElementById('audioOverlay');
+    overlay.addEventListener('click', () => {
+      audio.play().then(() => {
+        overlay.style.display = 'none';
+      }).catch(e => {
+        overlay.innerText = '⚠ Tap again to enable audio';
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Special Moments 📸</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(-45deg, #eecce6, #e8d3f0, #f7e2ff, #d6c7f5);
+      background-size: 400% 400%;
+      animation: gradientBG 10s ease infinite;
+      color: #4a005f;
+      padding: 20px;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      font-family: 'Pacifico', cursive;
+      margin-bottom: 40px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .media-page {
+      max-width: 1000px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .media-block {
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 15px;
+      margin-bottom: 30px;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+
+    .media-block:hover {
+      transform: scale(1.02);
+    }
+
+    .media-block img {
+      width: 100%;
+      max-width: 600px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+
+    .media-block p {
+      font-size: 1.1rem;
+      text-align: center;
+    }
+
+    .video-block {
+      text-align: center;
+      margin: 40px 0;
+    }
+
+    .video-block video {
+      width: 100%;
+      max-width: 600px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    p.footer-msg {
+      text-align: center;
+      font-size: 1.2rem;
+      margin-top: 40px;
+      font-weight: bold;
+    }
+
+    .back-btn {
+      display: block;
+      margin: 30px auto;
+      background: #a76fd3;
+      color: white;
+      padding: 12px 25px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background 0.3s;
+      text-decoration: none;
+    }
+
+    .back-btn:hover {
+      background: #7b50a0;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2rem;
+      }
+      .media-block img {
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 🎶 Background Music -->
+  <audio id="bg-music" autoplay loop>
+    <source src="song.mp3" type="audio/mp3" />
+    Your browser does not support the audio element.
+  </audio>
+
+  <div class="media-page">
+    <h1>🌺 Happiest birthday ma... 🌺</h1>
+
+    <!-- 🖼️ Image 1 with paragraph -->
+    <div class="media-block">
+      <img src="./c7.jpg" alt="Mom Love">
+      <p>From my first steps to my biggest dreams, you’ve always been there guiding me with love. 💖</p>
+    </div>
+
+    <!-- 🖼️ Image 2 with paragraph -->
+    <div class="media-block">
+      <img src="./c1.jpg" alt="Support">
+      <p>You are not just my mother, you're my greatest support and comfort. 🌸</p>
+    </div>
+
+    <!-- 🎥 Birthday Video -->
+    <div class="video-block">
+      <h2>🎥 A Small Surprise for You</h2>
+      <video id="birthday-video" controls loop>
+        <source src="video.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+    <p class="footer-msg">💖 With all my love, always – your child 💖</p>
+
+    <!-- 🔙 Back Button -->
+    <a href="index.html" class="back-btn">love you more maa🫶🏻🫶🏻</a>
+  </div>
+
+  <!-- 🧠 Script to pause music when video plays -->
+  <script>
+    const video = document.getElementById('birthday-video');
+    const music = document.getElementById('bg-music');
+
+    video.addEventListener('play', () => {
+      music.pause();
+    });
+
+    video.addEventListener('pause', () => {
+      music.play();
+    });
+  </script>
+</body>
+</html>
